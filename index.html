@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MISIONEROS DE PEDRO SÁNCHEZ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Rampart+One&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Rampart+One&family=Monoton&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap">
 <style>
   :root{
     --bg:#0A0714;
@@ -134,6 +134,17 @@
   .field input, .field select, .field textarea{padding:11px 12px; border:2px solid var(--line); border-radius:8px; background:var(--panel-deep); color:var(--text); font-size:15px;}
   .field textarea{resize:vertical; min-height:60px;}
   .error-msg{color:var(--seal); font-size:13px; font-weight:700; margin:-6px 0 12px;}
+  .finde-banner{
+    text-align:center; font-family:'Monoton','Rampart One',cursive; font-weight:400;
+    font-size:clamp(22px,6vw,34px); letter-spacing:.06em; line-height:1.2;
+    color:#fff; margin:-4px 0 18px;
+    text-shadow:
+      0 0 2px #fff,
+      0 0 6px var(--neon-pink),
+      0 0 14px var(--neon-pink),
+      0 0 26px var(--neon-purple),
+      0 0 42px var(--neon-cyan);
+  }
   .admin-banner{background: repeating-linear-gradient(45deg, var(--gold) 0 12px, var(--panel-deep) 12px 24px); padding:3px; border-radius:8px; margin-bottom:14px;}
   .admin-banner span{display:block; background:var(--panel); border-radius:6px; padding:8px; text-align:center; font-weight:900; font-size:12px; letter-spacing:.08em; color:var(--text);}
 
@@ -196,9 +207,11 @@
   .tier-2 .tag-card{flex:1 1 0; min-width:0; max-width:250px;}
   .tier-3 .tag-card{flex:1 1 0; min-width:0; max-width:195px;}
   .tier-4 .tag-card{flex:1 1 0; min-width:0; max-width:175px;}
-  @media (max-width:480px){
-    .pyramid-tier{gap:8px; padding-left:2.5%; padding-right:2.5%;}
-    .tag-card{padding:18px 6px 12px;}
+  @media (max-width:640px){
+    .pyramid-tier{flex-direction:column; flex-wrap:wrap; align-items:center; gap:18px; padding:40px 8% 36px;}
+    .tier-1 .tag-card, .tier-2 .tag-card, .tier-3 .tag-card, .tier-4 .tag-card{
+      flex:0 0 auto; width:min(100%,280px); max-width:280px;
+    }
   }
 
   .tag-card{position:relative; background:var(--panel-2); border:2px solid var(--line); border-radius:4px 12px 12px 12px; padding:24px 14px 16px; text-align:center; box-shadow:var(--shadow); transition:box-shadow .15s ease, border-color .15s ease;}
@@ -258,6 +271,17 @@
   .stepper{display:flex; align-items:center; gap:6px;}
   .stepper button{width:30px; height:30px; border-radius:8px; border:2px solid var(--line); background:var(--panel-2); color:var(--text); font-weight:900; cursor:pointer; font-size:16px; line-height:1;}
   .stepper .val{font-family:'Rampart One'; min-width:34px; text-align:center; font-size:16px; color:var(--duck);}
+  .duck-input{
+    width:56px; text-align:center; font-family:'Rampart One'; font-size:15px; color:var(--duck);
+    background:var(--panel-deep); border:2px solid var(--line); border-radius:8px; padding:5px 2px;
+    -moz-appearance:textfield;
+  }
+  .duck-input:focus{border-color:var(--neon-cyan); box-shadow:0 0 8px -2px var(--neon-cyan);}
+  .duck-input::-webkit-outer-spin-button, .duck-input::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
+  .loglist{display:flex; flex-direction:column; gap:8px; max-height:520px; overflow-y:auto;}
+  .logrow{display:flex; align-items:baseline; gap:12px; background:var(--panel-deep); border:1px solid var(--line); border-left:3px solid var(--neon-cyan); border-radius:8px; padding:9px 12px; font-size:13px;}
+  .logtime{flex:none; color:var(--text-soft); font-family:'Rampart One'; font-size:11px; white-space:nowrap;}
+  .logtext{color:var(--text);}
   .addbox{border:2px dashed var(--line); border-radius:10px; padding:14px; margin-top:16px;}
   .addbox h3{font-size:14px; margin-bottom:10px; color:var(--text);}
   .formgrid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
@@ -332,7 +356,7 @@
     "config": {
       "appTitle": "MISIONEROS DE PEDRO SÁNCHEZ",
       "birthdayName": "Pedro",
-      "subtitle": "夜祭り · Fiesta Nocturna del Pato",
+      "subtitle": "夜祭り · Finde del Pato",
       "adminPassword": "Anthonygordon"
     },
     "players": [
@@ -355,7 +379,8 @@
       {"id":"ms2","username":"invitado1","title":"Reta a Pedro a un juego de mesa","description":"Gánale (o al menos inténtalo) en cualquier juego de mesa de la noche.","reward":6,"status":"activa"},
       {"id":"ms3","username":"invitado2","title":"Cuenta el chiste más malo de la noche","description":"Haz reír (o gemir) a al menos 3 personas con tu peor chiste.","reward":4,"status":"activa"},
       {"id":"ms4","username":"invitado2","title":"Baila la canción del cumpleaños","description":"Sin excusas, aunque sea moviendo un pie.","reward":3,"status":"completada"}
-    ]
+    ],
+    "log": []
   };
 
   var DATA = JSON.parse(JSON.stringify(DEFAULT_DATA));
@@ -390,6 +415,17 @@
   }
   function uid(prefix){ return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
   function findPlayer(u){ return DATA.players.find(function(p){ return p.username === u; }); }
+  function addLog(dt, text){
+    dt.log = dt.log || [];
+    dt.log.unshift({ id: uid('lg'), ts: Date.now(), text: text });
+    if (dt.log.length > 200) dt.log.length = 200;
+  }
+  function formatLogTime(ts){
+    try {
+      var d = new Date(ts);
+      return d.toLocaleString('es-ES', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'});
+    } catch(e){ return ''; }
+  }
   function playerMissions(u){ return DATA.missions.filter(function(m){ return m.username === u; }); }
 
   function showToast(msg, isErr){
@@ -530,6 +566,7 @@
     var isAdmin = ui.view === 'login-admin';
     var html = awning('');
     html += '<div class="card fadein-once">';
+    html += '<div class="finde-banner">FINDE DEL PATO</div>';
     html += '<div class="login-tabs">' +
       '<button data-act="show-login-player" class="' + (!isAdmin?'active':'') + '">🎟️ Jugador</button>' +
       '<button data-act="show-login-admin" class="' + (isAdmin?'active':'') + '">🔧 Admin</button>' +
@@ -546,7 +583,7 @@
       html += field('login-user','Tu nombre de usuario','text');
       html += field('login-pass','Tu contraseña','password');
       html += (ui.loginError ? '<div class="error-msg">'+esc(ui.loginError)+'</div>' : '');
-      html += '<button class="btn" type="submit" style="width:100%">Entrar al Bazar</button>';
+      html += '<button class="btn" type="submit" style="width:100%">Iniciar sesión</button>';
       html += '</form>';
     }
     html += '</div>';
@@ -680,12 +717,14 @@
     );
     html += '<div class="adminnav">' +
       adminBtn('jugadores','👥 Jugadores') + adminBtn('misiones','🎯 Misiones') +
-      adminBtn('premios','🎁 Premios') + adminBtn('ajustes','⚙️ Ajustes') +
+      adminBtn('premios','🎁 Premios') + adminBtn('registro','📜 Registro') +
+      adminBtn('ajustes','⚙️ Ajustes') +
       '</div>';
     html += '<div class="card fadein-once">';
     if (ui.adminSection === 'jugadores') html += renderAdminPlayers();
     else if (ui.adminSection === 'misiones') html += renderAdminMissions();
     else if (ui.adminSection === 'premios') html += renderAdminPrizes();
+    else if (ui.adminSection === 'registro') html += renderAdminLog();
     else html += renderAdminSettings();
     html += '</div>';
     return html;
@@ -701,7 +740,8 @@
         '<div class="meta">usuario: <b>'+esc(p.username)+'</b> · contraseña: <b>'+esc(p.password)+'</b></div></div>' +
         '<div class="stepper">' +
           '<button data-act="ducks" data-u="'+p.username+'" data-d="-1">−</button>' +
-          '<div class="val">'+p.ducks+' <img class="duck-icon" src="images/logo-pato.png" alt="pato"></div>' +
+          '<input type="number" class="duck-input" data-set-ducks="'+p.username+'" value="'+p.ducks+'" min="0" inputmode="numeric">' +
+          '<img class="duck-icon" src="images/logo-pato.png" alt="pato">' +
           '<button data-act="ducks" data-u="'+p.username+'" data-d="1">+</button>' +
           '<button class="btn small" data-act="ducks" data-u="'+p.username+'" data-d="5">+5</button>' +
         '</div>' +
@@ -782,6 +822,17 @@
       '</form></div>';
     return html;
   }
+  function renderAdminLog(){
+    var html = '<div class="section-title"><h2>Registro de cambios</h2><span class="jp">履歴</span></div>';
+    var log = DATA.log || [];
+    if (!log.length) return html + '<div class="empty-note">Todavía no hay cambios registrados. Aparecerán aquí en cuanto se muevan patitos, misiones o premios.</div>';
+    html += '<div class="loglist">';
+    log.forEach(function(entry){
+      html += '<div class="logrow"><span class="logtime">'+esc(formatLogTime(entry.ts))+'</span><span class="logtext">'+esc(entry.text)+'</span></div>';
+    });
+    html += '</div>';
+    return html;
+  }
   function renderAdminSettings(){
     var c = DATA.config;
     return '<div class="section-title"><h2>Ajustes del Bazar</h2></div>' +
@@ -828,43 +879,63 @@
       var u = el.getAttribute('data-u'), d = parseInt(el.getAttribute('data-d'),10);
       mutate(function(dt){
         var pl = dt.players.find(function(x){return x.username===u;});
-        if (pl) pl.ducks = Math.max(0, pl.ducks + d);
+        if (!pl) return false;
+        pl.ducks = Math.max(0, pl.ducks + d);
+        addLog(dt, (d>0?'+':'')+d+' 🦆 para '+pl.displayName+' (ahora tiene '+pl.ducks+').');
       });
     }
     else if (act === 'del-player'){
       var u2 = el.getAttribute('data-u');
       if (!confirm('¿Borrar a este jugador y sus misiones?')) return;
       mutate(function(dt){
+        var pl2 = dt.players.find(function(x){return x.username===u2;});
         dt.players = dt.players.filter(function(x){return x.username!==u2;});
         dt.missions = dt.missions.filter(function(x){return x.username!==u2;});
+        addLog(dt, 'Jugador borrado: '+(pl2?pl2.displayName:u2)+' ('+u2+').');
       }, 'Jugador borrado.');
     }
     else if (act === 'toggle-mission'){
       var mid2 = el.getAttribute('data-m');
       mutate(function(dt){
         var m = dt.missions.find(function(x){return x.id===mid2;});
-        if (!m) return;
+        if (!m) return false;
         var pl = dt.players.find(function(x){return x.username===m.username;});
-        if (m.status === 'activa'){ m.status='completada'; if (pl) pl.ducks += m.reward; }
-        else { m.status='activa'; if (pl) pl.ducks = Math.max(0, pl.ducks - m.reward); }
+        if (m.status === 'activa'){
+          m.status='completada'; if (pl) pl.ducks += m.reward;
+          addLog(dt, 'Misión completada: "'+m.title+'" · '+(pl?pl.displayName:m.username)+' +'+m.reward+' 🦆.');
+        } else {
+          m.status='activa'; if (pl) pl.ducks = Math.max(0, pl.ducks - m.reward);
+          addLog(dt, 'Misión reabierta: "'+m.title+'" · '+(pl?pl.displayName:m.username)+' -'+m.reward+' 🦆.');
+        }
       });
     }
     else if (act === 'del-mission'){
       var mid3 = el.getAttribute('data-m');
       if (!confirm('¿Borrar esta misión?')) return;
-      mutate(function(dt){ dt.missions = dt.missions.filter(function(x){return x.id!==mid3;}); }, 'Misión borrada.');
+      mutate(function(dt){
+        var m2 = dt.missions.find(function(x){return x.id===mid3;});
+        dt.missions = dt.missions.filter(function(x){return x.id!==mid3;});
+        if (m2) addLog(dt, 'Misión borrada: "'+m2.title+'".');
+      }, 'Misión borrada.');
     }
     else if (act === 'prize-stock'){
       var pid = el.getAttribute('data-p'), pd = parseInt(el.getAttribute('data-d'),10);
       mutate(function(dt){
         var pr = dt.prizes.find(function(x){return x.id===pid;});
-        if (pr) pr.stock = Math.max(0, (pr.stock||0) + pd);
+        if (!pr) return false;
+        pr.stock = Math.max(0, (pr.stock||0) + pd);
+        if (pd < 0) addLog(dt, 'Premio canjeado: "'+pr.name+'" (quedan '+pr.stock+').');
+        else addLog(dt, 'Stock repuesto: "'+pr.name+'" (ahora '+pr.stock+').');
       });
     }
     else if (act === 'del-prize'){
       var pid2 = el.getAttribute('data-p');
       if (!confirm('¿Borrar este premio?')) return;
-      mutate(function(dt){ dt.prizes = dt.prizes.filter(function(x){return x.id!==pid2;}); }, 'Premio borrado.');
+      mutate(function(dt){
+        var pr2 = dt.prizes.find(function(x){return x.id===pid2;});
+        dt.prizes = dt.prizes.filter(function(x){return x.id!==pid2;});
+        if (pr2) addLog(dt, 'Premio borrado: "'+pr2.name+'".');
+      }, 'Premio borrado.');
     }
   });
 
@@ -872,6 +943,19 @@
     if (e.target.id === 'mission-filter'){
       ui.adminPlayerFilter = e.target.value || null;
       render();
+    }
+    else if (e.target.hasAttribute && e.target.hasAttribute('data-set-ducks')){
+      var duckUser = e.target.getAttribute('data-set-ducks');
+      var newVal = parseInt(e.target.value, 10);
+      if (isNaN(newVal) || newVal < 0) newVal = 0;
+      mutate(function(dt){
+        var pl3 = dt.players.find(function(x){return x.username===duckUser;});
+        if (!pl3) return false;
+        var oldVal = pl3.ducks;
+        if (oldVal === newVal) return false;
+        pl3.ducks = newVal;
+        addLog(dt, 'Patitos de '+pl3.displayName+' fijados en '+newVal+' (antes '+oldVal+').');
+      });
     }
   });
 
@@ -904,6 +988,7 @@
       mutate(function(dt){
         if (dt.players.some(function(x){return x.username===user;})){ showToast('Ese usuario ya existe.', true); return false; }
         dt.players.push({username:user, displayName:name, password:pass, ducks:ducks});
+        addLog(dt, 'Nuevo jugador: '+name+' ('+user+') con '+ducks+' 🦆 iniciales.');
       }, 'Jugador añadido.');
     }
     else if (id === 'form-add-mission'){
@@ -914,6 +999,8 @@
       if (!mt){ showToast('Ponle un título a la misión.', true); return; }
       mutate(function(dt){
         dt.missions.push({id:uid('ms'), username:mu, title:mt, description:md, reward:mr, status:'activa'});
+        var mpl = dt.players.find(function(x){return x.username===mu;});
+        addLog(dt, 'Nueva misión: "'+mt+'" para '+(mpl?mpl.displayName:mu)+' (recompensa '+mr+' 🦆).');
       }, 'Misión añadida.');
     }
     else if (id === 'form-add-prize'){
@@ -928,6 +1015,7 @@
       if (!pn){ showToast('Ponle nombre al premio.', true); return; }
       mutate(function(dt){
         dt.prizes.push({id:uid('pz'), emoji:pe, img:pimg||null, name:pn, cost:pc, stock:ps, tier:pt});
+        addLog(dt, 'Nuevo premio: "'+pn+'" (coste '+pc+' 🦆, stock '+ps+').');
       }, 'Premio añadido.');
     }
     else if (id === 'form-settings'){
@@ -940,6 +1028,7 @@
         dt.config.birthdayName = b || dt.config.birthdayName;
         dt.config.subtitle = s || dt.config.subtitle;
         dt.config.adminPassword = p || dt.config.adminPassword;
+        addLog(dt, 'Ajustes del bazar actualizados.');
       }, 'Ajustes guardados.');
     }
   });
