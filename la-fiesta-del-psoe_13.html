@@ -1,0 +1,951 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MISIONEROS DE PEDRO SÁNCHEZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Rampart+One&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap">
+<style>
+  :root{
+    --bg:#0A0714;
+    --panel:#160F24;
+    --panel-2:#1D1430;
+    --panel-deep:#07050D;
+    --text:#F1ECFA;
+    --text-soft:#9C8FC2;
+    --seal:#FF3B6E;
+    --seal-soft:#3A0F22;
+    --gold:#FFC93D;
+    --duck:#FFD400;
+    --pond:#2CF5D6;
+    --pond-soft:#0C3A34;
+    --line:#3A2C56;
+    --neon-pink:#FF2FB0;
+    --neon-cyan:#28F1FF;
+    --neon-purple:#B24BFF;
+    --neon-yellow:#F4FF3D;
+    --shadow: 0 2px 0 var(--line), 0 10px 22px -8px rgba(0,0,0,.75);
+    --neon-shadow: 0 0 6px currentColor, 0 0 18px currentColor;
+    color-scheme: dark;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      linear-gradient(rgba(40,241,255,.05) 1px, transparent 1px) 0 0/100% 42px,
+      linear-gradient(90deg, rgba(255,47,176,.045) 1px, transparent 1px) 0 0/48px 100%,
+      radial-gradient(560px 340px at 12% 4%, rgba(255,47,176,.16), transparent 68%),
+      radial-gradient(520px 360px at 92% 12%, rgba(40,241,255,.14), transparent 68%),
+      radial-gradient(600px 420px at 50% 100%, rgba(178,75,255,.14), transparent 70%),
+      /* estrellas */
+      radial-gradient(1.6px 1.6px at 12% 18%, #fff 50%, transparent 52%) 0 0/86px 86px,
+      radial-gradient(1.2px 1.2px at 68% 42%, rgba(255,255,255,.85) 50%, transparent 52%) 0 0/64px 64px,
+      radial-gradient(2px 2px at 40% 76%, #fff 50%, transparent 52%) 0 0/128px 128px,
+      radial-gradient(1.2px 1.2px at 85% 12%, rgba(255,255,255,.75) 50%, transparent 52%) 0 0/102px 102px,
+      radial-gradient(1.6px 1.6px at 25% 58%, rgba(40,241,255,.9) 50%, transparent 52%) 0 0/150px 150px,
+      radial-gradient(1.6px 1.6px at 78% 82%, rgba(255,47,176,.9) 50%, transparent 52%) 0 0/170px 170px,
+      radial-gradient(1px 1px at 55% 8%, rgba(255,255,255,.6) 50%, transparent 52%) 0 0/54px 54px,
+      radial-gradient(2px 2px at 6% 92%, rgba(178,75,255,.85) 50%, transparent 52%) 0 0/210px 210px,
+      var(--bg);
+    background-attachment: fixed;
+    color:var(--text);
+    font-family:'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', sans-serif;
+    padding-inline: 16px;
+    padding-block: 20px 48px;
+    min-height:100vh;
+  }
+  .wrap{max-width:760px;margin:0 auto;}
+  h1,h2,h3{font-family:'Rampart One', 'Zen Maru Gothic', sans-serif; font-weight:400; text-wrap:balance; margin:0;}
+  button{font-family:inherit;}
+  input, select, textarea{font-family:inherit;}
+  ::selection{background:var(--duck); color:var(--panel-deep);}
+  :focus-visible{outline:3px solid var(--pond); outline-offset:2px;}
+
+  .demo-banner{
+    max-width:760px; margin:0 auto 14px; background:var(--gold); color:var(--panel-deep);
+    border:2px solid var(--panel-deep); border-radius:10px; padding:10px 14px; font-weight:700; font-size:13px;
+  }
+
+  .awning{
+    border-radius:16px 16px 4px 4px;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple) 50%, var(--neon-cyan));
+    padding:2px; box-shadow: 0 0 14px -2px var(--neon-pink), 0 0 26px -6px var(--neon-cyan), var(--shadow); margin-bottom:-2px;
+  }
+  .awning-inner{
+    background:var(--panel-deep); border-radius:14px 14px 2px 2px; padding:18px 20px 22px;
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    background-image: repeating-linear-gradient(0deg, rgba(40,241,255,.05) 0 1px, transparent 1px 26px);
+  }
+  .stamp-logo{
+    flex:none; width:52px;height:52px;border-radius:50%; background:var(--panel-deep); color:var(--duck);
+    display:flex;align-items:center;justify-content:center; font-size:26px;
+    border:2px solid var(--duck); transform:rotate(-8deg);
+    box-shadow:0 0 8px 1px var(--duck), 0 0 20px -2px var(--duck);
+  }
+  .brandbar{width:100%; display:flex; align-items:center; justify-content:center; gap:16px; text-align:center;}
+  .brand-duck{
+    flex:none; height:clamp(48px,9vw,74px); width:auto; display:block;
+    filter:drop-shadow(0 0 8px var(--duck)) drop-shadow(0 0 18px rgba(255,212,0,.55));
+  }
+  .brand-duck.right{transform:scaleX(-1);}
+  .duck-icon{height:1.1em; width:auto; vertical-align:-0.18em; display:inline-block;}
+  .duck-icon-lg{height:1.6em; width:auto; vertical-align:-0.35em; display:inline-block; filter:drop-shadow(0 0 6px var(--duck));}
+  .brandblock{flex:0 1 auto; min-width:0;}
+  .brandblock h1{
+    font-family:'Yuji Syuku','Rampart One',serif; color:#fff; font-size:clamp(24px,6vw,40px); line-height:1.15;
+    text-shadow: 0 0 6px rgba(255,255,255,.6), 0 0 16px var(--neon-pink), 0 0 32px var(--neon-purple), 0 0 48px var(--neon-cyan);
+  }
+  .brandblock .sub{color:var(--neon-cyan); font-size:13px; letter-spacing:.06em; margin-top:4px; text-shadow:0 0 8px rgba(40,241,255,.6);}
+  .brandblock .tagline{
+    color:var(--duck); font-family:'Rampart One'; font-size:clamp(12px,2.6vw,15px); letter-spacing:.03em;
+    margin-top:8px; text-shadow:0 0 8px rgba(255,212,0,.6);
+  }
+  .topbar{width:100%; margin-top:14px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;}
+  .duckcount{
+    display:inline-flex; align-items:center; gap:8px; background:var(--panel-deep); color:var(--duck);
+    border-radius:999px; padding:7px 16px 7px 10px; font-family:'Rampart One'; font-size:18px;
+    box-shadow: inset 0 0 0 2px var(--duck), 0 0 10px -1px var(--duck); font-variant-numeric: tabular-nums;
+    text-shadow:0 0 8px rgba(255,212,0,.7);
+  }
+  .duckcount .who{font-family:'Zen Maru Gothic'; font-weight:700; font-size:13px; color:var(--text-soft); margin-right:2px; text-shadow:none;}
+  .topbtns{display:flex; gap:8px;}
+  .btn{
+    appearance:none; border:2px solid var(--panel-deep); border-radius:10px; padding:10px 18px;
+    font-weight:700; font-size:14px; cursor:pointer; background:var(--gold); color:var(--panel-deep);
+    box-shadow: 0 3px 0 var(--panel-deep), 0 0 12px -3px var(--gold); transition: transform .08s ease, box-shadow .15s ease;
+  }
+  .btn:active{transform:translateY(3px); box-shadow:none;}
+  .btn.ghost{background:transparent; color:var(--neon-cyan); border-color:var(--neon-cyan); box-shadow:0 0 8px -2px var(--neon-cyan);}
+  .btn.small{padding:6px 12px; font-size:12px; box-shadow:0 2px 0 var(--panel-deep);}
+  .btn.danger{background:var(--seal); color:#1a0806; border-color:var(--panel-deep); box-shadow:0 3px 0 var(--panel-deep), 0 0 12px -3px var(--seal);}
+  .btn.pond{background:var(--pond); color:#062720; box-shadow:0 3px 0 var(--panel-deep), 0 0 12px -3px var(--pond);}
+  .btn[disabled]{opacity:.5; cursor:not-allowed;}
+
+  .card{background:var(--panel); border:2px solid var(--line); border-radius:0 0 14px 14px; padding:22px; box-shadow: var(--shadow), 0 0 22px -14px var(--neon-cyan);}
+  .card.fullwidth{border-radius:14px; margin:16px auto 0; max-width:1400px; box-sizing:border-box;}
+
+  .login-tabs{display:flex; gap:8px; margin-bottom:18px;}
+  .login-tabs button{flex:1; padding:10px; border-radius:10px 10px 0 0; border:2px solid var(--line); border-bottom:none; background:var(--panel-2); color:var(--text-soft); font-weight:700; cursor:pointer; transition:border-color .15s ease, box-shadow .15s ease, color .15s ease;}
+  .login-tabs button:hover{border-color:var(--neon-cyan); color:var(--text);}
+  .login-tabs button.active{background:var(--panel); color:var(--text); border-color:var(--neon-pink); box-shadow:0 0 14px -4px var(--neon-pink), inset 0 0 10px -6px var(--neon-pink);}
+  .field{display:flex; flex-direction:column; gap:6px; margin-bottom:14px;}
+  .field label{font-size:12px; font-weight:700; color:var(--text-soft); text-transform:uppercase; letter-spacing:.05em;}
+  .field input, .field select, .field textarea{padding:11px 12px; border:2px solid var(--line); border-radius:8px; background:var(--panel-deep); color:var(--text); font-size:15px;}
+  .field textarea{resize:vertical; min-height:60px;}
+  .error-msg{color:var(--seal); font-size:13px; font-weight:700; margin:-6px 0 12px;}
+  .admin-banner{background: repeating-linear-gradient(45deg, var(--gold) 0 12px, var(--panel-deep) 12px 24px); padding:3px; border-radius:8px; margin-bottom:14px;}
+  .admin-banner span{display:block; background:var(--panel); border-radius:6px; padding:8px; text-align:center; font-weight:900; font-size:12px; letter-spacing:.08em; color:var(--text);}
+
+  .tabbar{display:flex; gap:10px; margin:18px 0 -2px; position:relative; z-index:1;}
+  .tag-tab{flex:1; text-align:center; padding:12px 8px 16px; cursor:pointer; background:var(--panel-2); border:2px solid var(--line); border-bottom:none; border-radius:12px 12px 0 0; font-weight:900; font-size:14px; color:var(--text-soft); position:relative; transform:translateY(6px); transition:transform .12s ease, border-color .15s ease, box-shadow .15s ease;}
+  .tag-tab:hover{border-color:var(--neon-purple); box-shadow:0 0 12px -4px var(--neon-purple);}
+  .tag-tab.active{background:var(--panel); color:var(--text); transform:translateY(0); border-color:var(--neon-cyan); box-shadow:0 -6px 16px -8px var(--neon-cyan);}
+  .tag-tab.active::after{content:""; position:absolute; left:14%; right:14%; bottom:-2px; height:2px; background:var(--neon-cyan); box-shadow:0 0 8px 1px var(--neon-cyan);}
+  .tag-tab .n{display:block; font-family:'Rampart One'; font-size:20px; margin-bottom:2px;}
+  .tag-tab.active .n{color:var(--neon-cyan); text-shadow:0 0 10px rgba(40,241,255,.7);}
+
+  .section-title{display:flex; align-items:baseline; gap:10px; margin:0 0 16px;}
+  .section-title h2{font-size:20px; text-shadow:0 0 12px rgba(40,241,255,.5);}
+  .section-title .jp{color:var(--neon-cyan); font-size:12px; text-shadow:0 0 6px rgba(40,241,255,.5);}
+
+  .prize-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:22px 18px; padding-top:10px;}
+
+  /* --------- pirámide de premios: escalones reales, con neón --------- */
+  .pyramid{
+    display:flex; flex-direction:column; align-items:center; gap:0;
+    padding:6px 0 26px; position:relative;
+  }
+  .pyramid::before{
+    content:""; position:absolute; inset:0 -6% auto -6%; height:100%;
+    background: radial-gradient(70% 90% at 50% 100%, rgba(178,75,255,.16), transparent 72%);
+    pointer-events:none; z-index:0; border-radius:40px;
+  }
+  .pyramid-tier{
+    position:relative; z-index:1; width:100%; box-sizing:border-box;
+    display:flex; justify-content:center; align-items:flex-end; flex-wrap:nowrap; gap:20px;
+    padding:56px 4% 52px; margin-top:26px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.05) 0%, rgba(0,0,0,.28) 100%),
+      linear-gradient(0deg, var(--step-glow, var(--neon-cyan)) 0%, transparent 4px);
+    border:1px solid rgba(255,255,255,.08);
+    border-bottom:6px solid var(--step-glow, var(--neon-cyan));
+    border-radius:20px 20px 8px 8px;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.08),
+      0 22px 32px -18px rgba(0,0,0,.8),
+      0 6px 24px -6px var(--step-glow, var(--neon-cyan));
+  }
+  .pyramid-tier::before{
+    content:attr(data-label); position:absolute; top:-13px; left:50%; transform:translateX(-50%);
+    font-family:'Rampart One'; font-size:11px; letter-spacing:.1em; white-space:nowrap;
+    padding:4px 16px; border-radius:999px; background:var(--panel-deep);
+    color:var(--step-glow, var(--neon-cyan)); border:1px solid var(--step-glow, var(--neon-cyan));
+    box-shadow:0 0 10px -1px var(--step-glow, var(--neon-cyan)), inset 0 0 6px -2px var(--step-glow, var(--neon-cyan));
+  }
+  .pyramid-tier::after{
+    content:""; position:absolute; left:0; right:0; bottom:-20px; height:20px;
+    background:linear-gradient(180deg, rgba(0,0,0,.6), transparent);
+    filter:blur(1px); z-index:-1;
+  }
+  .tier-1{ --step-glow:var(--neon-pink); width:min(100%,440px); }
+  .tier-2{ --step-glow:var(--neon-cyan); width:min(100%,920px); }
+  .tier-3{ --step-glow:var(--neon-purple); width:100%; }
+  .tier-4{ --step-glow:var(--neon-yellow); width:100%; }
+  .tier-1 .tag-card{flex:1 1 0; min-width:0; max-width:300px;}
+  .tier-2 .tag-card{flex:1 1 0; min-width:0; max-width:250px;}
+  .tier-3 .tag-card{flex:1 1 0; min-width:0; max-width:195px;}
+  .tier-4 .tag-card{flex:1 1 0; min-width:0; max-width:175px;}
+  @media (max-width:480px){
+    .pyramid-tier{gap:8px; padding-left:2.5%; padding-right:2.5%;}
+    .tag-card{padding:18px 6px 12px;}
+  }
+
+  .tag-card{position:relative; background:var(--panel-2); border:2px solid var(--line); border-radius:4px 12px 12px 12px; padding:24px 14px 16px; text-align:center; box-shadow:var(--shadow); transition:box-shadow .15s ease, border-color .15s ease;}
+  .tag-card:hover{border-color:var(--step-glow, var(--neon-cyan)); box-shadow:var(--shadow), 0 0 16px -4px var(--step-glow, var(--neon-cyan));}
+  .tag-card.zoomable{cursor:zoom-in;}
+  .lightbox{position:fixed; inset:0; background:rgba(8,6,12,.86); z-index:60; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:24px; cursor:zoom-out;}
+  .lightbox img{max-width:min(92vw,640px); max-height:72vh; object-fit:contain; border-radius:12px; border:3px solid var(--line); background:var(--panel-deep); box-shadow:0 20px 50px rgba(0,0,0,.6);}
+  .lightbox-caption{color:var(--text); font-weight:700; font-size:15px; text-align:center; font-family:'Rampart One';}
+  .lightbox-hint{color:var(--text-soft); font-size:12px;}
+  .tag-card::before{content:""; position:absolute; top:-9px; left:50%; transform:translateX(-50%); width:16px; height:16px; border-radius:50%; background:var(--duck); border:2px solid var(--panel-deep);}
+  .tag-card .photo{width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:10px; border:2px solid var(--line); background:var(--panel-deep); display:block; margin-bottom:10px;}
+  .row .thumb{width:36px; height:36px; object-fit:cover; border-radius:6px; border:2px solid var(--line); vertical-align:middle; margin-right:8px; background:var(--panel-2);}
+  .tag-card .emoji{font-size:52px; display:block; margin-bottom:8px;}
+  .tag-card .name{font-weight:700; font-size:15px; line-height:1.3; min-height:38px; color:var(--text); overflow-wrap:break-word; word-break:break-word; hyphens:auto;}
+  .tag-card .price{margin-top:10px; display:inline-flex; align-items:center; gap:5px; background:var(--duck); color:var(--panel-deep); font-family:'Rampart One'; font-size:16px; border-radius:999px; padding:6px 14px;}
+  .tag-card .stock-note{margin-top:6px; font-size:11px; font-weight:700; color:var(--text-soft);}
+  .tag-card .stock-note.low{color:var(--seal);}
+  .tag-card.afford{outline:3px solid var(--pond); outline-offset:2px;}
+  .tag-card .afford-flag{position:absolute; top:6px; right:6px; background:var(--pond); color:#062720; font-size:10px; font-weight:900; padding:2px 6px; border-radius:6px; letter-spacing:.03em;}
+  .tag-card.done .inner-fade{opacity:.5;}
+  .stamp-wrap{position:absolute; inset:0; border-radius:4px 12px 12px 12px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:rgba(90,86,100,.72);}
+  .stamp{border:3px solid var(--seal); color:var(--seal); border-radius:10px; padding:6px 16px; transform:rotate(-8deg); font-family:'Rampart One'; text-align:center; line-height:1.05; background:rgba(20,10,16,.5); text-shadow:0 0 6px var(--seal), 0 0 16px var(--seal); box-shadow:0 0 14px -2px var(--seal);}
+  .stamp .big{font-size:16px; letter-spacing:.03em;}
+  .stamp .jp{font-size:10px; font-family:'Zen Maru Gothic'; font-weight:900;}
+
+  .ranklist{display:flex; flex-direction:column; gap:10px;}
+  .rankrow{display:flex; align-items:center; gap:14px; background:var(--panel-2); border:2px solid var(--line); border-radius:10px; padding:10px 16px;}
+  .rankrow.me{border-color:var(--duck); background:var(--panel-deep); box-shadow:0 0 0 2px rgba(255,212,0,.25) inset, 0 0 14px -4px var(--duck);}
+  .rankpos{font-size:20px; font-family:'Rampart One'; width:34px; text-align:center; flex:none; color:var(--text-soft);}
+  .rankname{flex:1; font-weight:700; font-family:'Zen Maru Gothic'; color:var(--text);}
+  .rankname .jp{font-size:11px; color:var(--duck); font-weight:900; margin-left:4px;}
+  .rankducks{font-family:'Rampart One'; color:var(--duck); font-size:15px; flex:none;}
+
+  .stampcard{background:var(--panel-2); border:2px dashed var(--line); border-radius:14px; padding:18px; display:flex; flex-wrap:wrap; gap:16px;}
+  .stampslot{width:104px; text-align:center;}
+  .slotcircle{width:76px; height:76px; border-radius:50%; margin:0 auto 8px; display:flex; align-items:center; justify-content:center; font-size:26px; position:relative; cursor:pointer;}
+  .slotcircle.pending{border:3px dashed var(--line); background:var(--panel-deep); color:var(--text-soft);}
+  .slotcircle.done{border:3px solid var(--neon-purple); background:var(--seal-soft); color:var(--neon-purple); box-shadow:0 0 12px -2px var(--neon-purple);}
+  .stampslot .lbl{font-size:11.5px; font-weight:700; line-height:1.25; color:var(--text);}
+  .stampslot .rw{font-size:11px; color:var(--duck); font-weight:900; margin-top:2px;}
+  .mission-detail{margin-top:12px; background:var(--panel-deep); border:2px solid var(--line); border-radius:10px; padding:12px 14px; font-size:13.5px;}
+  .empty-note{color:var(--text-soft); font-size:14px; padding:18px 4px;}
+
+  .adminnav{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;}
+  .adminnav button{border:2px solid var(--line); background:var(--panel-2); color:var(--text-soft); font-weight:700; border-radius:8px; padding:8px 14px; font-size:13px; cursor:pointer; transition:border-color .15s ease, box-shadow .15s ease;}
+  .adminnav button:hover{border-color:var(--neon-cyan); box-shadow:0 0 10px -3px var(--neon-cyan);}
+  .adminnav button.active{background:var(--pond); color:#062720; border-color:var(--panel-deep); box-shadow:0 0 14px -2px var(--pond), 0 0 26px -8px var(--pond);}
+  .row{display:flex; align-items:center; gap:10px; flex-wrap:wrap; border:2px solid var(--line); background:var(--panel-deep); border-radius:10px; padding:10px 12px; margin-bottom:10px;}
+  .row .grow{flex:1; min-width:120px;}
+  .row .name{font-weight:700; font-size:14.5px; color:var(--text);}
+  .row .meta{font-size:12px; color:var(--text-soft);}
+  .pill{display:inline-block; padding:3px 10px; border-radius:999px; font-size:11.5px; font-weight:900;}
+  .pill.activa{background:var(--pond-soft); color:var(--pond);}
+  .pill.completada{background:var(--seal-soft); color:var(--seal);}
+  .pill.si{background:var(--seal-soft); color:var(--seal);}
+  .pill.no{background:var(--pond-soft); color:var(--pond);}
+  .stepper{display:flex; align-items:center; gap:6px;}
+  .stepper button{width:30px; height:30px; border-radius:8px; border:2px solid var(--line); background:var(--panel-2); color:var(--text); font-weight:900; cursor:pointer; font-size:16px; line-height:1;}
+  .stepper .val{font-family:'Rampart One'; min-width:34px; text-align:center; font-size:16px; color:var(--duck);}
+  .addbox{border:2px dashed var(--line); border-radius:10px; padding:14px; margin-top:16px;}
+  .addbox h3{font-size:14px; margin-bottom:10px; color:var(--text);}
+  .formgrid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .formgrid .full{grid-column:1/-1;}
+  @media (max-width:520px){.formgrid{grid-template-columns:1fr;}}
+
+  .center-screen{max-width:760px; margin:60px auto; text-align:center; color:var(--text-soft); font-size:15px;}
+
+  #toast{position:fixed; left:50%; bottom:20px; transform:translateX(-50%); background:var(--panel-deep); color:var(--text); padding:11px 18px; border-radius:10px; font-weight:700; font-size:13.5px; box-shadow:0 8px 20px rgba(0,0,0,.5); z-index:50; max-width:90vw; text-align:center; border:1px solid var(--line);}
+  #toast.err{background:var(--seal); color:#1a0806; border-color:var(--seal);}
+  #toast[hidden]{display:none;}
+
+  @media (prefers-reduced-motion: no-preference){
+    .fadein{animation: fadein .5s ease both;}
+    @keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+    .brandblock h1{animation: neonflicker 6s ease-in-out infinite;}
+    @keyframes neonflicker{
+      0%,19%,21%,23%,54%,56%,100%{
+        text-shadow: 0 0 6px rgba(255,255,255,.6), 0 0 16px var(--neon-pink), 0 0 32px var(--neon-purple), 0 0 48px var(--neon-cyan);
+      }
+      20%,22%,55%{ text-shadow: 0 0 2px rgba(255,255,255,.3); }
+    }
+  }
+</style>
+</head>
+<body>
+
+<div id="toast" hidden></div>
+<div id="app"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============================================================
+     CONFIGURA AQUÍ TU BIN DE DATOS (por ejemplo JSONBin.io)
+     ------------------------------------------------------------
+     1. Crea una cuenta gratis en https://jsonbin.io
+     2. Crea un bin nuevo pegando el contenido de DEFAULT_DATA
+        (lo tienes un poco más abajo en este mismo archivo).
+     3. Copia aquí el ID del bin y tu X-Master-Key:
+     ============================================================ */
+  var BIN_ID      = "6aa3c218ffd5d16053f97fe8";
+  var BIN_API_KEY = "$2a$10$GIQhqjikc8jJPqHZxAYxuO20.FtSI3Ng5jOpARqHWMaO9/UcJmMSi";
+  var BIN_BASE_URL = "https://api.jsonbin.io/v3/b/";
+  var POLL_MS = 20000; // cada cuánto se refrescan los jugadores mientras tienen la app abierta
+
+  function isBinConfigured(){
+    return BIN_ID && BIN_ID.indexOf('TU_BIN_ID') === -1 &&
+           BIN_API_KEY && BIN_API_KEY.indexOf('TU_API_KEY') === -1;
+  }
+  async function fetchFromBin(){
+    var res = await fetch(BIN_BASE_URL + BIN_ID + '/latest', {
+      headers: { 'X-Master-Key': BIN_API_KEY, 'X-Bin-Meta': 'false' }
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return await res.json();
+  }
+  async function saveToBin(newData){
+    var res = await fetch(BIN_BASE_URL + BIN_ID, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'X-Master-Key': BIN_API_KEY },
+      body: JSON.stringify(newData)
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return true;
+  }
+
+  /* Datos de ejemplo — se usan si el bin todavía no está configurado,
+     y también sirven como plantilla inicial para crear tu bin. */
+  var DEFAULT_DATA = {
+    "config": {
+      "appTitle": "MISIONEROS DE PEDRO SÁNCHEZ",
+      "birthdayName": "Pedro",
+      "subtitle": "夜祭り · Fiesta Nocturna del Pato",
+      "adminPassword": "Anthonygordon"
+    },
+    "players": [
+      {"username":"prueba","displayName":"Usuario de Prueba","password":"prueba","ducks":50},
+      {"username":"invitado1","displayName":"Invitado de ejemplo 1","password":"pato123","ducks":14},
+      {"username":"invitado2","displayName":"Invitado de ejemplo 2","password":"pato456","ducks":6}
+    ],
+    "prizes": [
+      {"id":"pz4","img":"images/premio-rc-drift-car.jpg","emoji":"🏎️","name":"Professional RC Drift Car","cost":9,"stock":1,"tier":1},
+      {"id":"pz7","img":"images/premio-rc-excavadora.png","emoji":"🚜","name":"RC Excavator","cost":7,"stock":1,"tier":2},
+      {"id":"pz8","img":"images/premio-hitster.png","emoji":"🎵","name":"Hitster - The Music Party Game","cost":6,"stock":1,"tier":2},
+      {"id":"pz3","img":"images/premio-alcoholimetro.jpg","emoji":"🍾","name":"Medidor de Alcohol Digital","cost":5,"stock":1,"tier":2},
+      {"id":"pz1","img":"images/premio-mascara-invasor.png","emoji":"👽","name":"Máscara de Invasor Galáctico","cost":4,"stock":1,"tier":3},
+      {"id":"pz5","img":"images/premio-rc-cucaracha.png","emoji":"🪳","name":"RC Cockroach (cucaracha teledirigida)","cost":4,"stock":2,"tier":3},
+      {"id":"pz6","img":"images/premio-set-cucharas.png","emoji":"🥄","name":"Set de Cucharas con forma de pala","cost":2,"stock":3,"tier":3},
+      {"id":"pz2","img":"images/premio-vinyl-coasters.png","emoji":"💿","name":"Vinyl Coasters (set de 6)","cost":2,"stock":2,"tier":3}
+    ],
+    "missions": [
+      {"id":"ms1","username":"invitado1","title":"Encuentra el pato escondido","description":"Hay un patito de goma escondido en la fiesta. ¡Encuéntralo antes que nadie!","reward":5,"status":"completada"},
+      {"id":"ms2","username":"invitado1","title":"Reta a Pedro a un juego de mesa","description":"Gánale (o al menos inténtalo) en cualquier juego de mesa de la noche.","reward":6,"status":"activa"},
+      {"id":"ms3","username":"invitado2","title":"Cuenta el chiste más malo de la noche","description":"Haz reír (o gemir) a al menos 3 personas con tu peor chiste.","reward":4,"status":"activa"},
+      {"id":"ms4","username":"invitado2","title":"Baila la canción del cumpleaños","description":"Sin excusas, aunque sea moviendo un pie.","reward":3,"status":"completada"}
+    ]
+  };
+
+  var DATA = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  var pollTimer = null;
+
+  var ui = {
+    booted: false,
+    bootError: false,
+    demoMode: false,
+    view: 'login-player',
+    loggedUsername: null,
+    tab: 'premios',
+    adminSection: 'jugadores',
+    adminPlayerFilter: null,
+    openMission: null,
+    openImage: null,
+    loginError: null,
+    busy: false
+  };
+
+  try {
+    var savedA = sessionStorage.getItem('bdp_admin');
+    var savedP = sessionStorage.getItem('bdp_player');
+    if (savedA === '1') ui.view = 'admin';
+    else if (savedP) { ui.view = 'player'; ui.loggedUsername = savedP; }
+  } catch (e) {}
+
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function uid(prefix){ return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+  function findPlayer(u){ return DATA.players.find(function(p){ return p.username === u; }); }
+  function playerMissions(u){ return DATA.missions.filter(function(m){ return m.username === u; }); }
+
+  function showToast(msg, isErr){
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = isErr ? 'err' : '';
+    t.hidden = false;
+    clearTimeout(showToast._h);
+    showToast._h = setTimeout(function(){ t.hidden = true; }, 3200);
+  }
+
+  /* ---------------- boot / sync ---------------- */
+  async function boot(){
+    renderBootScreen('Abriendo el bazar…');
+    if (isBinConfigured()){
+      try {
+        DATA = await fetchFromBin();
+      } catch (e) {
+        ui.bootError = true;
+        renderBootScreen(null);
+        return;
+      }
+    } else {
+      ui.demoMode = true;
+    }
+    ui.booted = true;
+    render();
+    startPolling();
+  }
+
+  function startPolling(){
+    stopPolling();
+    if (!isBinConfigured()) return;
+    pollTimer = setInterval(async function(){
+      if (ui.busy) return;
+      var active = document.activeElement;
+      var app = document.getElementById('app');
+      var typing = active && app.contains(active) && /INPUT|TEXTAREA|SELECT/.test(active.tagName);
+      try {
+        var fresh = await fetchFromBin();
+        DATA = fresh;
+        if (!typing) render();
+      } catch (e) { /* fallo pasajero: se reintenta en el próximo ciclo */ }
+    }, POLL_MS);
+  }
+  function stopPolling(){ if (pollTimer) clearInterval(pollTimer); pollTimer = null; }
+
+  async function refreshNow(){
+    if (!isBinConfigured()){ showToast('Configura el bin para poder sincronizar.', true); return; }
+    try { DATA = await fetchFromBin(); render(); showToast('Datos actualizados.', false); }
+    catch (e) { showToast('No se pudo actualizar. Revisa tu conexión.', true); }
+  }
+
+  async function mutate(fn, okMsg){
+    if (ui.busy) return;
+    ui.busy = true;
+    var clone = JSON.parse(JSON.stringify(DATA));
+    var result = fn(clone);
+    if (result === false){ ui.busy = false; return; }
+    if (!isBinConfigured()){
+      DATA = clone; ui.busy = false; render();
+      showToast('Bin no configurado: el cambio solo se ve en este dispositivo.', true);
+      return;
+    }
+    try {
+      await saveToBin(clone);
+      DATA = clone;
+    } catch (e) {
+      ui.busy = false;
+      showToast('No se pudo guardar en el bin. Inténtalo de nuevo.', true);
+      return;
+    }
+    ui.busy = false;
+    if (okMsg) showToast(okMsg, false);
+    render();
+  }
+
+  /* ---------------- render root ---------------- */
+  function renderBootScreen(loadingMsg){
+    var app = document.getElementById('app');
+    if (loadingMsg){
+      app.innerHTML = '<div class="center-screen"><img class="duck-icon-lg" src="images/logo-pato.png" alt="pato"> ' + esc(loadingMsg) + '</div>';
+    } else {
+      app.innerHTML = '<div class="center-screen">😵 No se pudo conectar con el bin de datos.<br>' +
+        'Revisa BIN_ID / BIN_API_KEY en el código, o tu conexión.<br><br>' +
+        '<button class="btn pond" onclick="location.reload()">Reintentar</button></div>';
+    }
+  }
+
+  function render(){
+    var app = document.getElementById('app');
+    var demo = ui.demoMode
+      ? '<div class="demo-banner">⚠️ Modo demo: configura <b>BIN_ID</b> y <b>BIN_API_KEY</b> en el código para que los datos se guarden de verdad.</div>'
+      : '';
+    var html;
+    if (ui.view === 'login-player' || ui.view === 'login-admin'){
+      html = '<div class="wrap">' + demo + renderLogin() + '</div>';
+    } else if (ui.view === 'player'){
+      html = renderPlayer(demo);
+    } else if (ui.view === 'admin'){
+      html = '<div class="wrap">' + demo + renderAdmin() + '</div>';
+    } else {
+      html = '<div class="wrap">' + demo + '</div>';
+    }
+    if (ui.openImage) html += renderLightbox(ui.openImage);
+    app.innerHTML = html;
+    app.querySelectorAll('.fadein-once').forEach(function(el){ el.classList.add('fadein'); });
+  }
+
+  function renderLightbox(prizeId){
+    var pr = DATA.prizes.find(function(x){ return x.id === prizeId; });
+    if (!pr || !pr.img) return '';
+    return '<div class="lightbox fadein" data-act="close-image">' +
+      '<img src="'+esc(pr.img)+'" alt="'+esc(pr.name)+'">' +
+      '<div class="lightbox-caption">'+esc(pr.name)+'</div>' +
+      '<div class="lightbox-hint">Toca para cerrar</div>' +
+      '</div>';
+  }
+
+  function awning(rightHtml){
+    return '' +
+      '<div class="awning"><div class="awning-inner">' +
+        '<div class="brandbar">' +
+          '<img class="brand-duck left" src="images/logo-pato.png" alt="Pato jefe">' +
+          '<div class="brandblock">' +
+            '<h1>' + esc(DATA.config.appTitle) + '</h1>' +
+            '<div class="sub">' + esc(DATA.config.subtitle) + '</div>' +
+            '<div class="tagline">Hazte con tantos patos como puedas</div>' +
+          '</div>' +
+          '<img class="brand-duck right" src="images/logo-pato.png" alt="Pato jefe">' +
+        '</div>' +
+        (rightHtml || '') +
+      '</div></div>';
+  }
+
+  /* ---------------- LOGIN ---------------- */
+  function renderLogin(){
+    var isAdmin = ui.view === 'login-admin';
+    var html = awning('');
+    html += '<div class="card fadein-once">';
+    html += '<div class="login-tabs">' +
+      '<button data-act="show-login-player" class="' + (!isAdmin?'active':'') + '">🎟️ Jugador</button>' +
+      '<button data-act="show-login-admin" class="' + (isAdmin?'active':'') + '">🔧 Admin</button>' +
+      '</div>';
+    if (isAdmin){
+      html += '<div class="admin-banner"><span>ACCESO PARA ADMINISTRADOR</span></div>';
+      html += '<form id="form-admin-login">';
+      html += field('admin-pass','Contraseña de administrador','password');
+      html += (ui.loginError ? '<div class="error-msg">'+esc(ui.loginError)+'</div>' : '');
+      html += '<button class="btn pond" type="submit" style="width:100%">Entrar como Administrador</button>';
+      html += '</form>';
+    } else {
+      html += '<form id="form-player-login">';
+      html += field('login-user','Tu nombre de usuario','text');
+      html += field('login-pass','Tu contraseña','password');
+      html += (ui.loginError ? '<div class="error-msg">'+esc(ui.loginError)+'</div>' : '');
+      html += '<button class="btn" type="submit" style="width:100%">Entrar al Bazar</button>';
+      html += '</form>';
+    }
+    html += '</div>';
+    return html;
+  }
+  function field(id, label, inputType){
+    return '<div class="field"><label for="'+id+'">'+esc(label)+'</label>' +
+      '<input id="'+id+'" type="'+inputType+'" autocomplete="off"></div>';
+  }
+
+  /* ---------------- PLAYER VIEW ---------------- */
+  function renderPlayer(demo){
+    var p = findPlayer(ui.loggedUsername);
+    if (!p){
+      ui.view='login-player'; ui.loggedUsername=null;
+      try{ sessionStorage.removeItem('bdp_player'); }catch(e){}
+      return '<div class="wrap">' + (demo||'') + renderLogin() + '</div>';
+    }
+    var head = awning(
+      '<div class="topbar">' +
+        '<div class="duckcount"><span class="who">'+esc(p.displayName)+'</span><img class="duck-icon" src="images/logo-pato.png" alt="pato"> × ' + p.ducks + '</div>' +
+        '<div class="topbtns">' +
+          '<button class="btn ghost small" data-act="refresh">🔄</button>' +
+          '<button class="btn ghost small" data-act="logout">Salir</button>' +
+        '</div>' +
+      '</div>'
+    );
+    head += '<div class="tabbar">' + tagTab('premios','🎁','Premios') + tagTab('misiones','🎯','Misiones') + tagTab('ranking','🏆','Ranking') + '</div>';
+    var headHtml = '<div class="wrap">' + (demo||'') + head + '</div>';
+    var bodyHtml;
+    if (ui.tab === 'premios'){
+      bodyHtml = '<div class="card fullwidth fadein-once">' + renderPrizesTab(p) + '</div>';
+    } else if (ui.tab === 'ranking'){
+      bodyHtml = '<div class="wrap"><div class="card fadein-once">' + renderRankingTab(p) + '</div></div>';
+    } else {
+      bodyHtml = '<div class="wrap"><div class="card fadein-once">' + renderMissionsTab(p) + '</div></div>';
+    }
+    return headHtml + bodyHtml;
+  }
+  function tagTab(key, emoji, label){
+    return '<div class="tag-tab '+(ui.tab===key?'active':'')+'" data-act="tab" data-tab="'+key+'">' +
+      '<span class="n">'+emoji+'</span>'+label+'</div>';
+  }
+  function renderPrizesTab(p){
+    var html = '<div class="section-title"><h2>Premios del Bazar</h2><span class="jp">割引 品</span></div>';
+    if (!DATA.prizes.length){ return html + '<div class="empty-note">Todavía no hay premios en el bazar. ¡Vuelve pronto!</div>'; }
+    var tiers = {};
+    DATA.prizes.forEach(function(pr){
+      var t = pr.tier || 4;
+      (tiers[t] = tiers[t] || []).push(pr);
+    });
+    var tierKeys = Object.keys(tiers).map(Number).sort(function(a,b){ return a-b; });
+    html += '<div class="pyramid">';
+    var tierLabels = {1:'第一段 · TIER I', 2:'第二段 · TIER II', 3:'第三段 · TIER III', 4:'第四段 · TIER IV'};
+    tierKeys.forEach(function(t){
+      html += '<div class="pyramid-tier tier-'+t+'" data-label="'+(tierLabels[t] || ('第'+t+'段'))+'">';
+      tiers[t].forEach(function(pr, i){ html += renderPrizeCard(pr, p, i); });
+      html += '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderPrizeCard(pr, p, i){
+    var stock = pr.stock || 0;
+    var agotado = stock <= 0;
+    var afford = !agotado && p.ducks >= pr.cost;
+    var html = '<div class="tag-card '+(agotado?'done':'')+' '+(afford?'afford':'')+' '+(pr.img?'zoomable':'')+'" style="transform:rotate('+((i%2===0)?'-2deg':'1.5deg')+');"' +
+      (pr.img ? ' data-act="toggle-image" data-p="'+pr.id+'"' : '') + '>';
+    if (afford) html += '<div class="afford-flag">¡A tu alcance!</div>';
+    html += '<div class="inner-fade">';
+    if (pr.img) html += '<img class="photo" src="'+esc(pr.img)+'" alt="'+esc(pr.name)+'">';
+    else html += '<span class="emoji">'+esc(pr.emoji || '🎁')+'</span>';
+    html += '<div class="name">'+esc(pr.name)+'</div>';
+    if (!agotado) html += '<div class="stock-note'+(stock<=1?' low':'')+'">Quedan '+stock+'</div>';
+    html += '</div>';
+    if (agotado){
+      html += '<div class="stamp-wrap"><div class="stamp"><div class="big">CANJEADO</div></div></div>';
+    }
+    html += '</div>';
+    return html;
+  }
+  function renderMissionsTab(p){
+    var html = '<div class="section-title"><h2>Tarjeta de Misiones</h2><span class="jp">スタンプカード</span></div>';
+    var missions = playerMissions(p.username);
+    if (!missions.length){ return html + '<div class="empty-note">Aún no tienes misiones asignadas. ¡Pronto llegará una!</div>'; }
+    html += '<div class="stampcard">';
+    missions.forEach(function(m){
+      var done = m.status === 'completada';
+      html += '<div class="stampslot" data-act="toggle-detail" data-mission="'+m.id+'">';
+      html += '<div class="slotcircle '+(done?'done':'pending')+'">'+(done?'済':'⏳')+'</div>';
+      html += '<div class="lbl">'+esc(m.title)+'</div>';
+      html += '<div class="rw">'+(done?'+':'vale ')+m.reward+' <img class="duck-icon" src="images/logo-pato.png" alt="pato"></div>';
+      html += '</div>';
+    });
+    html += '</div>';
+    if (ui.openMission){
+      var mm = missions.find(function(x){ return x.id === ui.openMission; });
+      if (mm) html += '<div class="mission-detail"><strong>'+esc(mm.title)+'</strong><br>'+esc(mm.description || 'Sin descripción.')+'</div>';
+    }
+    return html;
+  }
+  function renderRankingTab(p){
+    var html = '<div class="section-title"><h2>Ranking de Patitos</h2><span class="jp">ランキング</span></div>';
+    var sorted = DATA.players.slice().sort(function(a,b){ return b.ducks - a.ducks; });
+    var medals = ['🥇','🥈','🥉'];
+    html += '<div class="ranklist">';
+    sorted.forEach(function(pl, i){
+      var isMe = pl.username === p.username;
+      var medal = medals[i] || ('#' + (i+1));
+      html += '<div class="rankrow'+(isMe?' me':'')+'">';
+      html += '<div class="rankpos">'+medal+'</div>';
+      html += '<div class="rankname">'+esc(pl.displayName)+(isMe?' <span class="jp">(tú)</span>':'')+'</div>';
+      html += '<div class="rankducks">'+pl.ducks+' <img class="duck-icon" src="images/logo-pato.png" alt="pato"></div>';
+      html += '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  /* ---------------- ADMIN VIEW ---------------- */
+  function renderAdmin(){
+    var html = awning(
+      '<div class="topbar">' +
+        '<div class="duckcount"><span class="who">ADMIN</span>🔧 Panel</div>' +
+        '<div class="topbtns">' +
+          '<button class="btn ghost small" data-act="refresh">🔄</button>' +
+          '<button class="btn ghost small" data-act="logout">Salir</button>' +
+        '</div>' +
+      '</div>'
+    );
+    html += '<div class="adminnav">' +
+      adminBtn('jugadores','👥 Jugadores') + adminBtn('misiones','🎯 Misiones') +
+      adminBtn('premios','🎁 Premios') + adminBtn('ajustes','⚙️ Ajustes') +
+      '</div>';
+    html += '<div class="card fadein-once">';
+    if (ui.adminSection === 'jugadores') html += renderAdminPlayers();
+    else if (ui.adminSection === 'misiones') html += renderAdminMissions();
+    else if (ui.adminSection === 'premios') html += renderAdminPrizes();
+    else html += renderAdminSettings();
+    html += '</div>';
+    return html;
+  }
+  function adminBtn(key,label){
+    return '<button class="'+(ui.adminSection===key?'active':'')+'" data-act="admin-nav" data-sec="'+key+'">'+label+'</button>';
+  }
+  function renderAdminPlayers(){
+    var html = '<div class="section-title"><h2>Jugadores</h2></div>';
+    DATA.players.forEach(function(p){
+      html += '<div class="row">' +
+        '<div class="grow"><div class="name">'+esc(p.displayName)+'</div>' +
+        '<div class="meta">usuario: <b>'+esc(p.username)+'</b> · contraseña: <b>'+esc(p.password)+'</b></div></div>' +
+        '<div class="stepper">' +
+          '<button data-act="ducks" data-u="'+p.username+'" data-d="-1">−</button>' +
+          '<div class="val">'+p.ducks+' <img class="duck-icon" src="images/logo-pato.png" alt="pato"></div>' +
+          '<button data-act="ducks" data-u="'+p.username+'" data-d="1">+</button>' +
+          '<button class="btn small" data-act="ducks" data-u="'+p.username+'" data-d="5">+5</button>' +
+        '</div>' +
+        '<button class="btn small danger" data-act="del-player" data-u="'+p.username+'">Borrar</button>' +
+        '</div>';
+    });
+    html += '<div class="addbox"><h3>+ Añadir jugador</h3><form id="form-add-player">' +
+      '<div class="formgrid">' +
+        inputRow('np-name','Nombre a mostrar','') +
+        inputRow('np-user','Usuario (sin espacios)','') +
+        inputRow('np-pass','Contraseña','') +
+        inputRow('np-ducks','Patitos iniciales','0','number') +
+      '</div>' +
+      '<button class="btn pond" type="submit" style="margin-top:10px">Añadir jugador</button>' +
+      '</form></div>';
+    return html;
+  }
+  function renderAdminMissions(){
+    var html = '<div class="section-title"><h2>Misiones</h2></div>';
+    if (!DATA.players.length) return html + '<div class="empty-note">Añade jugadores primero.</div>';
+    html += '<div class="field" style="max-width:280px"><label>Filtrar por jugador</label><select id="mission-filter">';
+    html += '<option value="">Todos</option>';
+    DATA.players.forEach(function(p){
+      html += '<option value="'+p.username+'" '+(ui.adminPlayerFilter===p.username?'selected':'')+'>'+esc(p.displayName)+'</option>';
+    });
+    html += '</select></div>';
+    var list = DATA.missions.filter(function(m){ return !ui.adminPlayerFilter || m.username === ui.adminPlayerFilter; });
+    if (!list.length) html += '<div class="empty-note">No hay misiones para mostrar.</div>';
+    list.forEach(function(m){
+      var pl = findPlayer(m.username);
+      html += '<div class="row">' +
+        '<div class="grow"><div class="name">'+esc(m.title)+' <span class="pill '+m.status+'">'+(m.status==='completada'?'Completada':'Activa')+'</span></div>' +
+        '<div class="meta">'+esc(pl ? pl.displayName : m.username)+' · recompensa '+m.reward+' <img class="duck-icon" src="images/logo-pato.png" alt="pato"></div></div>' +
+        '<button class="btn small pond" data-act="toggle-mission" data-m="'+m.id+'">'+(m.status==='completada'?'Reabrir':'Marcar hecha')+'</button>' +
+        '<button class="btn small danger" data-act="del-mission" data-m="'+m.id+'">Borrar</button>' +
+        '</div>';
+    });
+    html += '<div class="addbox"><h3>+ Añadir misión</h3><form id="form-add-mission">' +
+      '<div class="formgrid">' +
+        '<div class="field full"><label>Jugador</label><select id="nm-user">' +
+          DATA.players.map(function(p){ return '<option value="'+p.username+'">'+esc(p.displayName)+'</option>'; }).join('') +
+        '</select></div>' +
+        inputRow('nm-title','Título de la misión','') +
+        inputRow('nm-reward','Recompensa en patitos','5','number') +
+        '<div class="field full"><label>Descripción</label><textarea id="nm-desc"></textarea></div>' +
+      '</div>' +
+      '<button class="btn pond" type="submit" style="margin-top:10px">Añadir misión</button>' +
+      '</form></div>';
+    return html;
+  }
+  function renderAdminPrizes(){
+    var html = '<div class="section-title"><h2>Premios</h2></div>';
+    DATA.prizes.forEach(function(pr){
+      var stock = pr.stock || 0;
+      var agotado = stock <= 0;
+      html += '<div class="row">' +
+        (pr.img ? '<img class="thumb" src="'+esc(pr.img)+'" alt="" onerror="this.dataset.broken=\'1\';this.alt=\'⚠️ no carga\';">' : '') +
+        '<div class="grow"><div class="name">'+esc(pr.name)+' <span class="pill '+(agotado?'si':'no')+'">'+(agotado?'Agotado':'Disponible')+'</span></div>' +
+        '<div class="meta">nivel pirámide: '+(pr.tier||4)+' · coste: '+pr.cost+' <img class="duck-icon" src="images/logo-pato.png" alt="pato"> · '+esc(pr.img || pr.emoji || 'sin imagen')+'</div></div>' +
+        '<div class="stepper">' +
+          '<button data-act="prize-stock" data-p="'+pr.id+'" data-d="-1" title="Canjear una unidad">−</button>' +
+          '<div class="val">'+stock+'</div>' +
+          '<button data-act="prize-stock" data-p="'+pr.id+'" data-d="1" title="Reponer una unidad">+</button>' +
+        '</div>' +
+        '<button class="btn small danger" data-act="del-prize" data-p="'+pr.id+'">Borrar</button>' +
+        '</div>';
+    });
+    html += '<div class="addbox"><h3>+ Añadir premio</h3><form id="form-add-prize">' +
+      '<div class="formgrid">' +
+        inputRow('npz-name','Nombre del premio','') +
+        inputRow('npz-cost','Coste en patitos','10','number') +
+        inputRow('npz-stock','Unidades disponibles','1','number') +
+        inputRow('npz-tier','Nivel de la pirámide (1=arriba/top, 4=abajo)','4','number') +
+        inputRow('npz-img','Ruta de la imagen (images/xxx.jpg)','') +
+        inputRow('npz-emoji','Emoji de recambio (si no hay imagen)','🎁') +
+      '</div>' +
+      '<button class="btn pond" type="submit" style="margin-top:10px">Añadir premio</button>' +
+      '</form></div>';
+    return html;
+  }
+  function renderAdminSettings(){
+    var c = DATA.config;
+    return '<div class="section-title"><h2>Ajustes del Bazar</h2></div>' +
+      '<form id="form-settings">' +
+      inputRow('cfg-title','Título de la app', esc(c.appTitle)) +
+      inputRow('cfg-birthday','Nombre del cumpleañero', esc(c.birthdayName)) +
+      inputRow('cfg-subtitle','Subtítulo', esc(c.subtitle)) +
+      inputRow('cfg-pass','Contraseña de administrador', esc(c.adminPassword)) +
+      '<button class="btn pond" type="submit" style="margin-top:6px">Guardar ajustes</button>' +
+      '</form>';
+  }
+  function inputRow(id,label,value,type){
+    return '<div class="field"><label for="'+id+'">'+esc(label)+'</label><input id="'+id+'" type="'+(type||'text')+'" value="'+esc(value||'')+'"></div>';
+  }
+
+  /* ---------------- events ---------------- */
+  document.getElementById('app').addEventListener('click', function(e){
+    var el = e.target.closest('[data-act]');
+    if (!el) return;
+    var act = el.getAttribute('data-act');
+
+    if (act === 'show-login-player'){ ui.view='login-player'; ui.loginError=null; render(); }
+    else if (act === 'show-login-admin'){ ui.view='login-admin'; ui.loginError=null; render(); }
+    else if (act === 'tab'){ ui.tab = el.getAttribute('data-tab'); ui.openMission=null; render(); }
+    else if (act === 'admin-nav'){ ui.adminSection = el.getAttribute('data-sec'); render(); }
+    else if (act === 'refresh'){ refreshNow(); }
+    else if (act === 'toggle-image'){
+      var pidImg = el.getAttribute('data-p');
+      ui.openImage = (ui.openImage === pidImg) ? null : pidImg;
+      render();
+    }
+    else if (act === 'close-image'){ ui.openImage = null; render(); }
+    else if (act === 'toggle-detail'){
+      var mid = el.getAttribute('data-mission');
+      ui.openMission = (ui.openMission === mid) ? null : mid;
+      render();
+    }
+    else if (act === 'logout'){
+      ui.view='login-player'; ui.loggedUsername=null;
+      try{ sessionStorage.removeItem('bdp_player'); sessionStorage.removeItem('bdp_admin'); }catch(err){}
+      render();
+    }
+    else if (act === 'ducks'){
+      var u = el.getAttribute('data-u'), d = parseInt(el.getAttribute('data-d'),10);
+      mutate(function(dt){
+        var pl = dt.players.find(function(x){return x.username===u;});
+        if (pl) pl.ducks = Math.max(0, pl.ducks + d);
+      });
+    }
+    else if (act === 'del-player'){
+      var u2 = el.getAttribute('data-u');
+      if (!confirm('¿Borrar a este jugador y sus misiones?')) return;
+      mutate(function(dt){
+        dt.players = dt.players.filter(function(x){return x.username!==u2;});
+        dt.missions = dt.missions.filter(function(x){return x.username!==u2;});
+      }, 'Jugador borrado.');
+    }
+    else if (act === 'toggle-mission'){
+      var mid2 = el.getAttribute('data-m');
+      mutate(function(dt){
+        var m = dt.missions.find(function(x){return x.id===mid2;});
+        if (!m) return;
+        var pl = dt.players.find(function(x){return x.username===m.username;});
+        if (m.status === 'activa'){ m.status='completada'; if (pl) pl.ducks += m.reward; }
+        else { m.status='activa'; if (pl) pl.ducks = Math.max(0, pl.ducks - m.reward); }
+      });
+    }
+    else if (act === 'del-mission'){
+      var mid3 = el.getAttribute('data-m');
+      if (!confirm('¿Borrar esta misión?')) return;
+      mutate(function(dt){ dt.missions = dt.missions.filter(function(x){return x.id!==mid3;}); }, 'Misión borrada.');
+    }
+    else if (act === 'prize-stock'){
+      var pid = el.getAttribute('data-p'), pd = parseInt(el.getAttribute('data-d'),10);
+      mutate(function(dt){
+        var pr = dt.prizes.find(function(x){return x.id===pid;});
+        if (pr) pr.stock = Math.max(0, (pr.stock||0) + pd);
+      });
+    }
+    else if (act === 'del-prize'){
+      var pid2 = el.getAttribute('data-p');
+      if (!confirm('¿Borrar este premio?')) return;
+      mutate(function(dt){ dt.prizes = dt.prizes.filter(function(x){return x.id!==pid2;}); }, 'Premio borrado.');
+    }
+  });
+
+  document.getElementById('app').addEventListener('change', function(e){
+    if (e.target.id === 'mission-filter'){
+      ui.adminPlayerFilter = e.target.value || null;
+      render();
+    }
+  });
+
+  document.getElementById('app').addEventListener('submit', function(e){
+    e.preventDefault();
+    var id = e.target.id;
+
+    if (id === 'form-player-login'){
+      var u = document.getElementById('login-user').value.trim().toLowerCase();
+      var pw = document.getElementById('login-pass').value;
+      var pl = DATA.players.find(function(x){ return x.username.toLowerCase() === u && x.password === pw; });
+      if (!pl){ ui.loginError = 'Usuario o contraseña incorrectos.'; render(); return; }
+      ui.view='player'; ui.loggedUsername=pl.username; ui.loginError=null;
+      try{ sessionStorage.setItem('bdp_player', pl.username); }catch(err){}
+      render();
+    }
+    else if (id === 'form-admin-login'){
+      var ap = document.getElementById('admin-pass').value;
+      if (ap !== DATA.config.adminPassword){ ui.loginError = 'Contraseña de administrador incorrecta.'; render(); return; }
+      ui.view='admin'; ui.loginError=null;
+      try{ sessionStorage.setItem('bdp_admin','1'); }catch(err){}
+      render();
+    }
+    else if (id === 'form-add-player'){
+      var name = document.getElementById('np-name').value.trim();
+      var user = document.getElementById('np-user').value.trim().toLowerCase().replace(/\s+/g,'');
+      var pass = document.getElementById('np-pass').value.trim();
+      var ducks = parseInt(document.getElementById('np-ducks').value,10) || 0;
+      if (!name || !user || !pass){ showToast('Rellena nombre, usuario y contraseña.', true); return; }
+      mutate(function(dt){
+        if (dt.players.some(function(x){return x.username===user;})){ showToast('Ese usuario ya existe.', true); return false; }
+        dt.players.push({username:user, displayName:name, password:pass, ducks:ducks});
+      }, 'Jugador añadido.');
+    }
+    else if (id === 'form-add-mission'){
+      var mu = document.getElementById('nm-user').value;
+      var mt = document.getElementById('nm-title').value.trim();
+      var mr = parseInt(document.getElementById('nm-reward').value,10) || 0;
+      var md = document.getElementById('nm-desc').value.trim();
+      if (!mt){ showToast('Ponle un título a la misión.', true); return; }
+      mutate(function(dt){
+        dt.missions.push({id:uid('ms'), username:mu, title:mt, description:md, reward:mr, status:'activa'});
+      }, 'Misión añadida.');
+    }
+    else if (id === 'form-add-prize'){
+      var pe = document.getElementById('npz-emoji').value.trim() || '🎁';
+      var pn = document.getElementById('npz-name').value.trim();
+      var pc = parseInt(document.getElementById('npz-cost').value,10) || 0;
+      var ps = parseInt(document.getElementById('npz-stock').value,10);
+      if (isNaN(ps)) ps = 1;
+      var pt = parseInt(document.getElementById('npz-tier').value,10);
+      if (isNaN(pt) || pt < 1) pt = 4;
+      var pimg = document.getElementById('npz-img').value.trim();
+      if (!pn){ showToast('Ponle nombre al premio.', true); return; }
+      mutate(function(dt){
+        dt.prizes.push({id:uid('pz'), emoji:pe, img:pimg||null, name:pn, cost:pc, stock:ps, tier:pt});
+      }, 'Premio añadido.');
+    }
+    else if (id === 'form-settings'){
+      var t = document.getElementById('cfg-title').value.trim();
+      var b = document.getElementById('cfg-birthday').value.trim();
+      var s = document.getElementById('cfg-subtitle').value.trim();
+      var p = document.getElementById('cfg-pass').value.trim();
+      mutate(function(dt){
+        dt.config.appTitle = t || dt.config.appTitle;
+        dt.config.birthdayName = b || dt.config.birthdayName;
+        dt.config.subtitle = s || dt.config.subtitle;
+        dt.config.adminPassword = p || dt.config.adminPassword;
+      }, 'Ajustes guardados.');
+    }
+  });
+
+  boot();
+})();
+</script>
+</body>
+</html>
