@@ -133,6 +133,8 @@
   .field label{font-size:12px; font-weight:700; color:var(--text-soft); text-transform:uppercase; letter-spacing:.05em;}
   .field input, .field select, .field textarea{padding:11px 12px; border:2px solid var(--line); border-radius:8px; background:var(--panel-deep); color:var(--text); font-size:15px;}
   .field textarea{resize:vertical; min-height:60px;}
+  .field textarea#cfg-rules{font-family:'Consolas','Menlo',monospace; font-size:13px; line-height:1.5;}
+  .field-hint{font-size:11.5px; color:var(--text-soft); margin-top:6px; line-height:1.4;}
   .error-msg{color:var(--seal); font-size:13px; font-weight:700; margin:-6px 0 12px;}
   .finde-banner{
     text-align:center; font-family:'Monoton','Rampart One',cursive; font-weight:400;
@@ -271,6 +273,26 @@
   .mission-detail{margin-top:12px; background:var(--panel-deep); border:2px solid var(--line); border-radius:10px; padding:12px 14px; font-size:13.5px;}
   .empty-note{color:var(--text-soft); font-size:14px; padding:18px 4px;}
 
+  .rules-content{font-size:14.5px; line-height:1.6; color:var(--text);}
+  .rules-p{margin:0 0 14px;}
+  .rules-heading{
+    font-family:'Rampart One'; font-size:16px; color:var(--neon-cyan); margin:22px 0 10px;
+    text-shadow:0 0 8px rgba(40,241,255,.5);
+  }
+  .rules-heading:first-of-type{margin-top:16px;}
+  .rules-list{list-style:none; margin:0 0 6px; padding:0; display:flex; flex-direction:column; gap:10px;}
+  .rules-list > li{
+    position:relative; padding-left:26px; background:var(--panel-2); border:1px solid var(--line);
+    border-left:3px solid var(--neon-pink); border-radius:8px; padding:10px 14px 10px 30px;
+  }
+  .rules-list > li::before{content:"🦆"; position:absolute; left:8px; top:9px; font-size:13px;}
+  .rules-sublist{list-style:none; margin:10px 0 0; padding:0; display:flex; flex-direction:column; gap:8px;}
+  .rules-sublist > li{
+    position:relative; padding:8px 12px 8px 26px; background:var(--panel-deep); border:1px dashed var(--line);
+    border-radius:7px; font-size:13.5px; color:var(--text-soft);
+  }
+  .rules-sublist > li::before{content:"·"; position:absolute; left:10px; top:6px; color:var(--neon-purple); font-size:18px; font-weight:900;}
+
   .adminnav{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;}
   .adminnav button{border:2px solid var(--line); background:var(--panel-2); color:var(--text-soft); font-weight:700; border-radius:8px; padding:8px 14px; font-size:13px; cursor:pointer; transition:border-color .15s ease, box-shadow .15s ease;}
   .adminnav button:hover{border-color:var(--neon-cyan); box-shadow:0 0 10px -3px var(--neon-cyan);}
@@ -373,12 +395,36 @@
       "appTitle": "MISIONEROS DE PEDRO SÁNCHEZ",
       "birthdayName": "Pedro",
       "subtitle": "夜祭り · Finde del Pato",
-      "adminPassword": "Anthonygordon"
+      "adminPassword": "Anthonygordon",
+      "rulesText": "¡Consigue tantos patos como puedas ganando en juegos o cumpliendo misiones y canjéalos por los premios disponibles!\n\nSe pueden conseguir patos de la siguiente forma:\n\n## Misiones\n- Cada misión tendrá un número de patos como recompensa en función de su dificultad\n\n## Bebe y gana\n- Por cada cerveza o copa que bebas, tienes una tirada gratis en uno de los siguientes juegos:\n  - Cronómetro: para el cronómetro del organizador en el segundo 10.00 para conseguir 1 pato\n  - Diana: tienes 3 intentos para darle al doble que diga el organizador\n\n## Juegos\n- Ganar 2 partidas seguidas a beer pong - 1 pato\n- Ganar partida de fibbage (mínimo 5 personas) - 1 pato\n- Ganar partida de buzz (mínimo 4 personas) - 1 pato\n- Ganar 2 partidas seguidas a lanzamiento de sacos - 1 pato\n- Ganar 1 partida de cricket en la diana (mínimo 4 personas) - 1 pato\n- Ganar partida a los pitos (mínimo 5 personas) - 1 pato"
     },
     "players": [
       {"username":"prueba","displayName":"Usuario de Prueba","password":"prueba","ducks":50},
       {"username":"invitado1","displayName":"Invitado de ejemplo 1","password":"pato123","ducks":14},
-      {"username":"invitado2","displayName":"Invitado de ejemplo 2","password":"pato456","ducks":6}
+      {"username":"invitado2","displayName":"Invitado de ejemplo 2","password":"pato456","ducks":6},
+      {"username":"dani","displayName":"Dani","password":"Dani7904","ducks":0},
+      {"username":"pedro","displayName":"Pedro","password":"Pedro2957","ducks":0},
+      {"username":"jesus","displayName":"Jesus","password":"Jesus8618","ducks":0},
+      {"username":"angel","displayName":"Ángel","password":"Angel2834","ducks":0},
+      {"username":"ramon","displayName":"Ramon","password":"Ramon3148","ducks":0},
+      {"username":"puli","displayName":"Puli","password":"Puli4048","ducks":0},
+      {"username":"javi","displayName":"Javi","password":"Javi3032","ducks":0},
+      {"username":"sebas","displayName":"Sebas","password":"Sebas9112","ducks":0},
+      {"username":"antonio","displayName":"Antonio","password":"Antonio3014","ducks":0},
+      {"username":"sergio","displayName":"Sergio","password":"Sergio5848","ducks":0},
+      {"username":"tuercas","displayName":"Tuercas","password":"Tuercas7715","ducks":0},
+      {"username":"alberto","displayName":"Alberto","password":"Alberto3449","ducks":0},
+      {"username":"jose","displayName":"Jose","password":"Jose6792","ducks":0},
+      {"username":"rome","displayName":"Rome","password":"Rome9824","ducks":0},
+      {"username":"andres","displayName":"Andres","password":"Andres5838","ducks":0},
+      {"username":"mayte","displayName":"Mayte","password":"Mayte7529","ducks":0},
+      {"username":"peche","displayName":"Peche","password":"Peche0682","ducks":0},
+      {"username":"ruben","displayName":"Ruben","password":"Ruben9586","ducks":0},
+      {"username":"pilar","displayName":"Pilar","password":"Pilar7865","ducks":0},
+      {"username":"sonia","displayName":"Sonia","password":"Sonia6687","ducks":0},
+      {"username":"nerea","displayName":"Nerea","password":"Nerea6972","ducks":0},
+      {"username":"nacho","displayName":"Nacho","password":"Nacho5314","ducks":0},
+      {"username":"chema","displayName":"Chema","password":"Chema7660","ducks":0}
     ],
     "prizes": [
       {"id":"pz4","img":"images/premio-rc-drift-car.jpg","emoji":"🏎️","name":"Professional RC Drift Car","cost":9,"stock":1,"tier":1},
@@ -627,13 +673,15 @@
         '</div>' +
       '</div>'
     );
-    head += '<div class="tabbar">' + tagTab('premios','🎁','Premios') + tagTab('misiones','🎯','Misiones') + tagTab('ranking','🏆','Ranking') + '</div>';
+    head += '<div class="tabbar">' + tagTab('premios','🎁','Premios') + tagTab('misiones','🎯','Misiones') + tagTab('ranking','🏆','Ranking') + tagTab('reglas','📖','Reglas') + '</div>';
     var headHtml = '<div class="wrap">' + (demo||'') + head + '</div>';
     var bodyHtml;
     if (ui.tab === 'premios'){
       bodyHtml = '<div class="card fullwidth fadein-once">' + renderPrizesTab(p) + '</div>';
     } else if (ui.tab === 'ranking'){
       bodyHtml = '<div class="wrap"><div class="card fadein-once">' + renderRankingTab(p) + '</div></div>';
+    } else if (ui.tab === 'reglas'){
+      bodyHtml = '<div class="wrap"><div class="card fadein-once">' + renderRulesTab() + '</div></div>';
     } else {
       bodyHtml = '<div class="wrap"><div class="card fadein-once">' + renderMissionsTab(p) + '</div></div>';
     }
@@ -730,6 +778,50 @@
       html += '</div>';
     });
     html += '</div>';
+    return html;
+  }
+  function renderRulesTab(){
+    var html = '<div class="section-title"><h2>Reglas del Finde del Pato</h2><span class="jp">ルール</span></div>';
+    html += '<div class="rules-content">' + renderRulesMarkdown(DATA.config.rulesText || '') + '</div>';
+    return html;
+  }
+  /* Mini-formato para las reglas: líneas "## " son títulos de sección,
+     líneas "- " son puntos, y líneas "  - " (con sangría) son sub-puntos. */
+  function renderRulesMarkdown(text){
+    var lines = String(text || '').replace(/\r\n/g,'\n').split('\n');
+    var html = '';
+    var i = 0;
+    while (i < lines.length){
+      var line = lines[i];
+      if (/^\s*$/.test(line)){ i++; continue; }
+      if (/^##\s+/.test(line)){
+        html += '<h3 class="rules-heading">'+esc(line.replace(/^##\s+/,''))+'</h3>';
+        i++;
+        continue;
+      }
+      if (/^-\s+/.test(line)){
+        html += '<ul class="rules-list">';
+        while (i < lines.length && (/^-\s+/.test(lines[i]) || /^\s*$/.test(lines[i]))){
+          if (/^\s*$/.test(lines[i])){ i++; continue; }
+          html += '<li>'+esc(lines[i].replace(/^-\s+/, ''));
+          i++;
+          if (i < lines.length && /^\s+-\s+/.test(lines[i])){
+            html += '<ul class="rules-sublist">';
+            while (i < lines.length && /^\s+-\s+/.test(lines[i])){
+              html += '<li>'+esc(lines[i].replace(/^\s+-\s+/, ''))+'</li>';
+              i++;
+            }
+            html += '</ul>';
+          }
+          html += '</li>';
+          if (i < lines.length && !/^-\s+/.test(lines[i]) && !/^\s*$/.test(lines[i])) break;
+        }
+        html += '</ul>';
+        continue;
+      }
+      html += '<p class="rules-p">'+esc(line)+'</p>';
+      i++;
+    }
     return html;
   }
 
@@ -870,6 +962,12 @@
       inputRow('cfg-birthday','Nombre del cumpleañero', esc(c.birthdayName)) +
       inputRow('cfg-subtitle','Subtítulo', esc(c.subtitle)) +
       inputRow('cfg-pass','Contraseña de administrador', esc(c.adminPassword)) +
+      '<div class="field">' +
+        '<label for="cfg-rules">Texto de la pestaña "Reglas"</label>' +
+        '<textarea id="cfg-rules" rows="16">'+esc(c.rulesText||'')+'</textarea>' +
+        '<div class="field-hint">Formato: una línea "## Título" crea una sección; una línea "- texto" crea un punto; ' +
+        'una línea con espacios delante y luego "- texto" crea un sub-punto dentro del punto anterior. Deja una línea en blanco entre bloques.</div>' +
+      '</div>' +
       '<button class="btn pond" type="submit" style="margin-top:6px">Guardar ajustes</button>' +
       '</form>';
   }
@@ -1052,11 +1150,13 @@
       var b = document.getElementById('cfg-birthday').value.trim();
       var s = document.getElementById('cfg-subtitle').value.trim();
       var p = document.getElementById('cfg-pass').value.trim();
+      var r = document.getElementById('cfg-rules').value;
       mutate(function(dt){
         dt.config.appTitle = t || dt.config.appTitle;
         dt.config.birthdayName = b || dt.config.birthdayName;
         dt.config.subtitle = s || dt.config.subtitle;
         dt.config.adminPassword = p || dt.config.adminPassword;
+        dt.config.rulesText = r.trim() ? r : dt.config.rulesText;
         addLog(dt, 'Ajustes del bazar actualizados.');
       }, 'Ajustes guardados.');
     }
