@@ -225,10 +225,19 @@
   .tag-card .photo{width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:10px; border:2px solid var(--line); background:var(--panel-deep); display:block; margin-bottom:10px;}
   .row .thumb{width:36px; height:36px; object-fit:cover; border-radius:6px; border:2px solid var(--line); vertical-align:middle; margin-right:8px; background:var(--panel-2);}
   .tag-card .emoji{font-size:52px; display:block; margin-bottom:8px;}
-  .tag-card .name{font-weight:700; font-size:15px; line-height:1.3; min-height:38px; color:var(--text); overflow-wrap:break-word; word-break:break-word; hyphens:auto;}
+  .tag-card .name{font-weight:800; font-size:17px; line-height:1.32; min-height:44px; color:var(--text); text-shadow:0 1px 3px rgba(0,0,0,.55); overflow-wrap:break-word; word-break:break-word; hyphens:auto;}
   .tag-card .price{margin-top:10px; display:inline-flex; align-items:center; gap:5px; background:var(--duck); color:var(--panel-deep); font-family:'Rampart One'; font-size:16px; border-radius:999px; padding:6px 14px;}
-  .tag-card .stock-note{margin-top:6px; font-size:11px; font-weight:700; color:var(--text-soft);}
-  .tag-card .stock-note.low{color:var(--seal);}
+  .tag-card .stock-note{
+    margin-top:12px; display:inline-flex; align-items:center; gap:6px;
+    font-family:'Rampart One'; font-size:15px; font-weight:400; letter-spacing:.02em;
+    color:#062720; background:var(--pond);
+    padding:6px 16px; border-radius:999px;
+    box-shadow:0 0 12px -2px var(--pond), 0 2px 0 rgba(0,0,0,.3);
+  }
+  .tag-card .stock-note.low{
+    color:#fff; background:var(--seal);
+    box-shadow:0 0 14px -1px var(--seal), 0 2px 0 rgba(0,0,0,.3);
+  }
   .tag-card.afford{outline:3px solid var(--pond); outline-offset:2px;}
   .tag-card .afford-flag{position:absolute; top:6px; right:6px; background:var(--pond); color:#062720; font-size:10px; font-weight:900; padding:2px 6px; border-radius:6px; letter-spacing:.03em;}
   .tag-card.done .inner-fade{opacity:.5;}
@@ -245,6 +254,13 @@
   .rankname .jp{font-size:11px; color:var(--duck); font-weight:900; margin-left:4px;}
   .rankducks{font-family:'Rampart One'; color:var(--duck); font-size:15px; flex:none;}
 
+  .mission-group-title{
+    display:flex; align-items:center; gap:8px; font-family:'Rampart One'; font-size:15px;
+    color:var(--pond); margin:22px 0 10px; text-shadow:0 0 8px rgba(44,245,214,.4);
+  }
+  .mission-group-title:first-of-type{margin-top:0;}
+  .mission-group-title.done-title{color:var(--neon-purple); text-shadow:0 0 8px rgba(178,75,255,.4);}
+  .mission-group-title .count{font-family:'Zen Maru Gothic'; font-weight:700; font-size:12px; color:var(--text-soft); text-shadow:none;}
   .stampcard{background:var(--panel-2); border:2px dashed var(--line); border-radius:14px; padding:18px; display:flex; flex-wrap:wrap; gap:16px;}
   .stampslot{width:104px; text-align:center;}
   .slotcircle{width:76px; height:76px; border-radius:50%; margin:0 auto 8px; display:flex; align-items:center; justify-content:center; font-size:26px; position:relative; cursor:pointer;}
@@ -670,16 +686,29 @@
     var html = '<div class="section-title"><h2>Tarjeta de Misiones</h2><span class="jp">スタンプカード</span></div>';
     var missions = playerMissions(p.username);
     if (!missions.length){ return html + '<div class="empty-note">Aún no tienes misiones asignadas. ¡Pronto llegará una!</div>'; }
-    html += '<div class="stampcard">';
-    missions.forEach(function(m){
-      var done = m.status === 'completada';
-      html += '<div class="stampslot" data-act="toggle-detail" data-mission="'+m.id+'">';
-      html += '<div class="slotcircle '+(done?'done':'pending')+'">'+(done?'済':'⏳')+'</div>';
-      html += '<div class="lbl">'+esc(m.title)+'</div>';
-      html += '<div class="rw">'+(done?'+':'vale ')+m.reward+' <img class="duck-icon" src="images/logo-pato.png" alt="pato"></div>';
-      html += '</div>';
-    });
-    html += '</div>';
+    var pending = missions.filter(function(m){ return m.status !== 'completada'; });
+    var done = missions.filter(function(m){ return m.status === 'completada'; });
+
+    function renderStampcard(list){
+      var h = '<div class="stampcard">';
+      list.forEach(function(m){
+        var isDone = m.status === 'completada';
+        h += '<div class="stampslot" data-act="toggle-detail" data-mission="'+m.id+'">';
+        h += '<div class="slotcircle '+(isDone?'done':'pending')+'">'+(isDone?'済':'⏳')+'</div>';
+        h += '<div class="lbl">'+esc(m.title)+'</div>';
+        h += '<div class="rw">'+(isDone?'+':'vale ')+m.reward+' <img class="duck-icon" src="images/logo-pato.png" alt="pato"></div>';
+        h += '</div>';
+      });
+      h += '</div>';
+      return h;
+    }
+
+    html += '<div class="mission-group-title">⏳ Pendientes <span class="count">('+pending.length+')</span></div>';
+    html += pending.length ? renderStampcard(pending) : '<div class="empty-note">¡No te queda ninguna pendiente!</div>';
+
+    html += '<div class="mission-group-title done-title">✅ Completadas <span class="count">('+done.length+')</span></div>';
+    html += done.length ? renderStampcard(done) : '<div class="empty-note">Todavía no has completado ninguna.</div>';
+
     if (ui.openMission){
       var mm = missions.find(function(x){ return x.id === ui.openMission; });
       if (mm) html += '<div class="mission-detail"><strong>'+esc(mm.title)+'</strong><br>'+esc(mm.description || 'Sin descripción.')+'</div>';
