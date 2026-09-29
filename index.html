@@ -276,22 +276,45 @@
   .rules-content{font-size:14.5px; line-height:1.6; color:var(--text);}
   .rules-p{margin:0 0 14px;}
   .rules-heading{
-    font-family:'Rampart One'; font-size:16px; color:var(--neon-cyan); margin:22px 0 10px;
+    display:flex; align-items:center; gap:10px;
+    font-family:'Rampart One'; font-size:17px; color:var(--neon-cyan); margin:26px 0 12px;
     text-shadow:0 0 8px rgba(40,241,255,.5);
   }
   .rules-heading:first-of-type{margin-top:16px;}
+  .rules-heading .rules-heading-icon{
+    display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; flex:0 0 auto;
+    border-radius:50%; background:var(--panel-deep); border:2px solid var(--neon-cyan); font-size:16px;
+    box-shadow:0 0 10px -2px var(--neon-cyan);
+  }
   .rules-list{list-style:none; margin:0 0 6px; padding:0; display:flex; flex-direction:column; gap:10px;}
   .rules-list > li{
-    position:relative; padding-left:26px; background:var(--panel-2); border:1px solid var(--line);
-    border-left:3px solid var(--neon-pink); border-radius:8px; padding:10px 14px 10px 30px;
+    position:relative; background:var(--panel-2); border:1px solid var(--line);
+    border-left:3px solid var(--neon-pink); border-radius:8px; padding:12px 14px 12px 32px;
+    transition:transform .15s ease, box-shadow .15s ease;
   }
-  .rules-list > li::before{content:"🦆"; position:absolute; left:8px; top:9px; font-size:13px;}
+  .rules-list > li:hover{transform:translateX(4px); box-shadow:0 0 16px -5px var(--neon-pink);}
+  .rules-list > li::before{content:"🦆"; position:absolute; left:9px; top:14px; font-size:13px;}
+  .rules-item-row{display:flex; align-items:center; justify-content:space-between; gap:12px;}
+  .rules-item-row .rules-item-text{flex:1; min-width:0;}
   .rules-sublist{list-style:none; margin:10px 0 0; padding:0; display:flex; flex-direction:column; gap:8px;}
   .rules-sublist > li{
-    position:relative; padding:8px 12px 8px 26px; background:var(--panel-deep); border:1px dashed var(--line);
+    position:relative; display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:9px 12px 9px 26px; background:var(--panel-deep); border:1px dashed var(--line);
     border-radius:7px; font-size:13.5px; color:var(--text-soft);
   }
-  .rules-sublist > li::before{content:"·"; position:absolute; left:10px; top:6px; color:var(--neon-purple); font-size:18px; font-weight:900;}
+  .rules-sublist > li::before{content:"·"; position:absolute; left:10px; top:5px; color:var(--neon-purple); font-size:18px; font-weight:900;}
+  .rules-sublist > li .rules-item-text{flex:1; min-width:0;}
+  .rules-badge{
+    flex:0 0 auto; display:inline-flex; align-items:center; gap:5px; white-space:nowrap;
+    font-family:'Rampart One'; font-size:14px; font-weight:400; letter-spacing:.02em;
+    color:#062720; background:var(--pond); padding:6px 14px; border-radius:999px;
+    box-shadow:0 0 12px -2px var(--pond), 0 2px 0 rgba(0,0,0,.3);
+  }
+  .rules-badge img{height:1em;}
+  .rules-badge.sub{
+    font-size:12.5px; padding:4px 11px; color:var(--neon-yellow); background:var(--panel-2);
+    border:1px solid var(--neon-yellow); box-shadow:0 0 8px -2px rgba(244,255,61,.5);
+  }
 
   .adminnav{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;}
   .adminnav button{border:2px solid var(--line); background:var(--panel-2); color:var(--text-soft); font-weight:700; border-radius:8px; padding:8px 14px; font-size:13px; cursor:pointer; transition:border-color .15s ease, box-shadow .15s ease;}
@@ -781,12 +804,34 @@
     return html;
   }
   function renderRulesTab(){
-    var html = '<div class="section-title"><h2>Reglas del Finde del Pato</h2><span class="jp">ルール</span></div>';
+    var html = '<div class="section-title"><h2>Reglas para conseguir patos</h2><span class="jp">ルール</span></div>';
     html += '<div class="rules-content">' + renderRulesMarkdown(DATA.config.rulesText || '') + '</div>';
     return html;
   }
+  /* Detecta un premio en patos dentro de un texto (p.ej. "...- 1 pato" o "...2 patos")
+     y separa el texto "limpio" del número de patos, para poder pintar el número
+     como una insignia bien visible en vez de dejarlo perdido dentro de la frase. */
+  function extractDuckReward(text){
+    var re = /(\d+)\s*patos?\b/gi;
+    var m, last = null;
+    while ((m = re.exec(text))) { last = m; }
+    if (!last) return { text: text, reward: null };
+    var before = text.slice(0, last.index);
+    var after = text.slice(last.index + last[0].length);
+    var cleaned = (before + after).replace(/\s*[-–:]\s*$/, '').replace(/\s{2,}/g, ' ').trim();
+    return { text: cleaned || text, reward: last[1] };
+  }
+  function rulesHeadingIcon(title){
+    var t = title.toLowerCase();
+    if (t.indexOf('mision') !== -1) return '🎯';
+    if (t.indexOf('bebe') !== -1 || t.indexOf('bebida') !== -1) return '🍻';
+    if (t.indexOf('juego') !== -1) return '🎮';
+    if (t.indexOf('extra') !== -1) return '✨';
+    return '🦆';
+  }
   /* Mini-formato para las reglas: líneas "## " son títulos de sección,
-     líneas "- " son puntos, y líneas "  - " (con sangría) son sub-puntos. */
+     líneas "- " o "* " son puntos, y líneas indentadas "  - "/"  * " son sub-puntos.
+     Si un punto termina (o contiene) "N pato(s)", ese número se pinta como insignia. */
   function renderRulesMarkdown(text){
     var lines = String(text || '').replace(/\r\n/g,'\n').split('\n');
     var html = '';
@@ -795,26 +840,35 @@
       var line = lines[i];
       if (/^\s*$/.test(line)){ i++; continue; }
       if (/^##\s+/.test(line)){
-        html += '<h3 class="rules-heading">'+esc(line.replace(/^##\s+/,''))+'</h3>';
+        var title = line.replace(/^##\s+/,'');
+        html += '<h3 class="rules-heading"><span class="rules-heading-icon">'+rulesHeadingIcon(title)+'</span>'+esc(title)+'</h3>';
         i++;
         continue;
       }
-      if (/^-\s+/.test(line)){
+      if (/^[-*]\s+/.test(line)){
         html += '<ul class="rules-list">';
-        while (i < lines.length && (/^-\s+/.test(lines[i]) || /^\s*$/.test(lines[i]))){
+        while (i < lines.length && (/^[-*]\s+/.test(lines[i]) || /^\s*$/.test(lines[i]))){
           if (/^\s*$/.test(lines[i])){ i++; continue; }
-          html += '<li>'+esc(lines[i].replace(/^-\s+/, ''));
+          var itemRaw = lines[i].replace(/^[-*]\s+/, '');
+          var itemPr = extractDuckReward(itemRaw);
+          html += '<li><div class="rules-item-row"><span class="rules-item-text">'+esc(itemPr.text)+'</span>' +
+            (itemPr.reward ? '<span class="rules-badge">'+esc(itemPr.reward)+' <img class="duck-icon" src="images/logo-pato.png" alt="pato"></span>' : '') +
+            '</div>';
           i++;
-          if (i < lines.length && /^\s+-\s+/.test(lines[i])){
+          if (i < lines.length && /^\s+[-*]\s+/.test(lines[i])){
             html += '<ul class="rules-sublist">';
-            while (i < lines.length && /^\s+-\s+/.test(lines[i])){
-              html += '<li>'+esc(lines[i].replace(/^\s+-\s+/, ''))+'</li>';
+            while (i < lines.length && /^\s+[-*]\s+/.test(lines[i])){
+              var subRaw = lines[i].replace(/^\s+[-*]\s+/, '');
+              var subPr = extractDuckReward(subRaw);
+              html += '<li><span class="rules-item-text">'+esc(subPr.text)+'</span>' +
+                (subPr.reward ? '<span class="rules-badge sub">'+esc(subPr.reward)+' <img class="duck-icon" src="images/logo-pato.png" alt="pato"></span>' : '') +
+                '</li>';
               i++;
             }
             html += '</ul>';
           }
           html += '</li>';
-          if (i < lines.length && !/^-\s+/.test(lines[i]) && !/^\s*$/.test(lines[i])) break;
+          if (i < lines.length && !/^[-*]\s+/.test(lines[i]) && !/^\s*$/.test(lines[i])) break;
         }
         html += '</ul>';
         continue;
@@ -965,8 +1019,9 @@
       '<div class="field">' +
         '<label for="cfg-rules">Texto de la pestaña "Reglas"</label>' +
         '<textarea id="cfg-rules" rows="16">'+esc(c.rulesText||'')+'</textarea>' +
-        '<div class="field-hint">Formato: una línea "## Título" crea una sección; una línea "- texto" crea un punto; ' +
-        'una línea con espacios delante y luego "- texto" crea un sub-punto dentro del punto anterior. Deja una línea en blanco entre bloques.</div>' +
+        '<div class="field-hint">Formato: una línea "## Título" crea una sección (con su propio icono); una línea "- texto" o "* texto" crea un punto; ' +
+        'una línea con espacios delante y luego "- texto"/"* texto" crea un sub-punto dentro del punto anterior. Deja una línea en blanco entre bloques. ' +
+        'Si un punto termina con un número seguido de "pato" o "patos" (p.ej. "Ganar a beer pong - 1 pato"), ese número se muestra como una insignia bien grande en vez de texto normal.</div>' +
       '</div>' +
       '<button class="btn pond" type="submit" style="margin-top:6px">Guardar ajustes</button>' +
       '</form>';
